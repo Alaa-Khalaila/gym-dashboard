@@ -41,12 +41,19 @@
   },
   "dashboard": {
     "title": "لوحة التحكم",
+    "welcomeBack": "مرحباً، {{name}}",
     "activeMembers": "الأعضاء النشطون",
+    "totalActiveDesc": "إجمالي الاشتراكات النشطة",
     "newThisMonth": "جدد هذا الشهر",
-    "expiringSoon": "تنتهي خلال 7 أيام",
+    "newThisMonthDesc": "أعضاء انضموا هذا الشهر",
+    "expiringSoon": "تنتهي قريباً",
+    "expiringSoonDesc": "خلال 7 أيام",
     "totalRevenueMonth": "إيرادات هذا الشهر",
+    "revenueMonthDesc": "المُحصَّل هذا الشهر",
     "totalRevenueYear": "إيرادات هذا العام",
     "expiringSoonList": "تنتهي قريباً",
+    "nextNDays": "خلال 7 أيام",
+    "remaining": "متبقٍ",
     "renew": "تجديد",
     "noExpiring": "لا يوجد أعضاء تنتهي اشتراكاتهم قريباً"
   },
@@ -56,6 +63,9 @@
     "search": "ابحث بالاسم أو الهاتف...",
     "filterStatus": "تصفية حسب الحالة",
     "noMembers": "لا يوجد أعضاء",
+    "noSubscription": "لا يوجد اشتراك",
+    "daysLeft": "{{count}} يوم متبقٍ",
+    "expiredAgo": "انتهى منذ {{count}} يوم",
     "gender": {
       "male": "ذكر",
       "female": "أنثى"

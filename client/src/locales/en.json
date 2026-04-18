@@ -41,12 +41,19 @@
   },
   "dashboard": {
     "title": "Dashboard",
+    "welcomeBack": "Welcome back, {{name}}",
     "activeMembers": "Active Members",
+    "totalActiveDesc": "Total active subscriptions",
     "newThisMonth": "New This Month",
-    "expiringSoon": "Expiring in 7 Days",
+    "newThisMonthDesc": "Members joined this month",
+    "expiringSoon": "Expiring Soon",
+    "expiringSoonDesc": "Next 7 days",
     "totalRevenueMonth": "Revenue This Month",
+    "revenueMonthDesc": "Collected this month",
     "totalRevenueYear": "Revenue This Year",
     "expiringSoonList": "Expiring Soon",
+    "nextNDays": "Next 7 days",
+    "remaining": "remaining",
     "renew": "Renew",
     "noExpiring": "No members expiring soon"
   },
@@ -56,6 +63,9 @@
     "search": "Search by name or phone...",
     "filterStatus": "Filter by status",
     "noMembers": "No members found",
+    "noSubscription": "No subscription",
+    "daysLeft": "{{count}} days left",
+    "expiredAgo": "Expired {{count}}d ago",
     "gender": {
       "male": "Male",
       "female": "Female"

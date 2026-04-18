@@ -13,7 +13,7 @@ export default function LanguageToggle() {
   return (
     <button
       onClick={toggle}
-      className="text-sm font-medium text-gray-500 hover:text-gray-900 transition px-2 py-1 rounded-md hover:bg-gray-100"
+      className="text-sm font-medium text-zinc-400 hover:text-white transition px-2 py-1 rounded-md hover:bg-zinc-800"
     >
       {current === 'en' ? 'عربي' : 'EN'}
     </button>
