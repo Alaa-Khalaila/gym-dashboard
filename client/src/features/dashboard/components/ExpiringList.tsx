@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { AlertTriangle } from 'lucide-react'
 import type { MemberRow } from '../../../services/mockData'
 import MemberAvatar from '../../../components/ui/MemberAvatar'
@@ -9,6 +10,7 @@ interface Props {
 
 export default function ExpiringList({ rows }: Props) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const expiring = rows
     .filter((r) => r.status === 'expiring_soon')
     .sort((a, b) => a.daysRemaining - b.daysRemaining)
@@ -41,7 +43,10 @@ export default function ExpiringList({ rows }: Props) {
                   <p className="text-sm font-semibold text-amber-400">{daysRemaining}d</p>
                   <p className="text-xs text-zinc-500">{t('dashboard.remaining')}</p>
                 </div>
-                <button className="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white transition-colors">
+                <button
+                  onClick={() => navigate(`/subscriptions/new?memberId=${member.id}`)}
+                  className="text-xs px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white transition-colors"
+                >
                   {t('dashboard.renew')}
                 </button>
               </div>

@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { Phone, Mail } from 'lucide-react'
 import MemberAvatar from '../../../components/ui/MemberAvatar'
 import StatusBadge from '../../../components/ui/StatusBadge'
@@ -11,6 +12,7 @@ interface Props {
 
 export default function MemberCard({ row }: Props) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const { member, subscription, status, daysRemaining } = row
 
   const daysLabel = useMemo(() => {
@@ -20,7 +22,13 @@ export default function MemberCard({ row }: Props) {
   }, [status, daysRemaining, t])
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 flex flex-col gap-4 hover:border-zinc-700 transition-colors cursor-pointer">
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => navigate(`/members/${member.id}`)}
+      onKeyDown={(e) => e.key === 'Enter' && navigate(`/members/${member.id}`)}
+      className="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 flex flex-col gap-4 hover:border-zinc-700 hover:bg-zinc-800/50 transition-colors cursor-pointer"
+    >
       <div className="flex items-start gap-3">
         <MemberAvatar name={member.name} />
         <div className="flex-1 min-w-0">

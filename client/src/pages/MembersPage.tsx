@@ -1,21 +1,20 @@
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Search, UserPlus } from 'lucide-react'
-import { useAuth } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
+import { useData } from '../context/DataContext'
 import MemberCard from '../features/members/components/MemberCard'
-import { getMemberRows } from '../services/mockData'
 
 type FilterTab = 'all' | 'active' | 'expiring_soon' | 'expired'
 
 export default function MembersPage() {
   const { t } = useTranslation()
-  const { user } = useAuth()
-  const isSuperAdmin = user?.role === 'super_admin'
+  const { getMemberRows } = useData()
 
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState<FilterTab>('all')
 
-  const allRows = useMemo(() => getMemberRows(), [])
+  const allRows = useMemo(() => getMemberRows(), [getMemberRows])
 
   const filtered = useMemo(() => {
     let rows = allRows
@@ -30,22 +29,23 @@ export default function MembersPage() {
   }, [allRows, filter, search])
 
   const tabs: { key: FilterTab; label: string }[] = [
-    { key: 'all',          label: t('common.all') },
-    { key: 'active',       label: t('common.active') },
-    { key: 'expiring_soon',label: t('common.expiringSoon') },
-    { key: 'expired',      label: t('common.expired') },
+    { key: 'all',           label: t('common.all') },
+    { key: 'active',        label: t('common.active') },
+    { key: 'expiring_soon', label: t('common.expiringSoon') },
+    { key: 'expired',       label: t('common.expired') },
   ]
 
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">{t('members.title')}</h1>
-        {isSuperAdmin && (
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium transition-colors">
-            <UserPlus className="w-4 h-4" />
-            <span className="hidden sm:inline">{t('members.addNew')}</span>
-          </button>
-        )}
+        <Link
+          to="/members/new"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium transition-colors"
+        >
+          <UserPlus className="w-4 h-4" />
+          <span className="hidden sm:inline">{t('members.addNew')}</span>
+        </Link>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3">
