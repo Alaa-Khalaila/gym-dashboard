@@ -104,6 +104,32 @@
     "notFound": "العضو غير موجود",
     "notFoundDesc": "العضو الذي تبحث عنه غير موجود."
   },
+  "revenue": {
+    "title": "الإيرادات",
+    "thisMonth": "هذا الشهر",
+    "thisYear": "هذا العام",
+    "allTime": "الكل",
+    "totalRevenue": "إجمالي الإيرادات",
+    "totalSubscriptions": "الاشتراكات",
+    "paidRevenue": "المحصّل",
+    "unpaidRevenue": "المتبقي",
+    "revenueByPlan": "الإيرادات حسب الخطة",
+    "monthlyRevenue": "الإيرادات الشهرية",
+    "last12Months": "آخر 12 شهراً",
+    "recentTransactions": "آخر المعاملات",
+    "noTransactions": "لا توجد معاملات في هذه الفترة",
+    "subs": "اشتراك",
+    "superAdminOnly": "الإيرادات مرئية للمشرف العام فقط"
+  },
+  "subscriptions": {
+    "title": "الاشتراكات",
+    "noSubscriptions": "لا توجد اشتراكات",
+    "member": "العضو",
+    "active": "نشطة",
+    "expiringSoon": "تنتهي قريباً",
+    "expired": "منتهية",
+    "dates": "{{start}} ← {{end}}"
+  },
   "subscription": {
     "status": {
       "active": "نشط",

@@ -104,6 +104,32 @@
     "notFound": "Member not found",
     "notFoundDesc": "The member you're looking for doesn't exist."
   },
+  "revenue": {
+    "title": "Revenue",
+    "thisMonth": "This Month",
+    "thisYear": "This Year",
+    "allTime": "All Time",
+    "totalRevenue": "Total Revenue",
+    "totalSubscriptions": "Subscriptions",
+    "paidRevenue": "Collected",
+    "unpaidRevenue": "Outstanding",
+    "revenueByPlan": "Revenue by Plan",
+    "monthlyRevenue": "Monthly Revenue",
+    "last12Months": "Last 12 months",
+    "recentTransactions": "Recent Transactions",
+    "noTransactions": "No transactions in this period",
+    "subs": "subs",
+    "superAdminOnly": "Revenue is only visible to super admins"
+  },
+  "subscriptions": {
+    "title": "Subscriptions",
+    "noSubscriptions": "No subscriptions found",
+    "member": "Member",
+    "active": "Active",
+    "expiringSoon": "Expiring Soon",
+    "expired": "Expired",
+    "dates": "{{start}} → {{end}}"
+  },
   "subscription": {
     "status": {
       "active": "Active",
