@@ -20,7 +20,20 @@
     "status": "الحالة",
     "plan": "الخطة",
     "startDate": "تاريخ البدء",
-    "endDate": "تاريخ الانتهاء"
+    "endDate": "تاريخ الانتهاء",
+    "back": "رجوع",
+    "add": "إضافة",
+    "required": "مطلوب",
+    "optional": "اختياري",
+    "months": "أشهر",
+    "price": "السعر",
+    "duration": "المدة",
+    "paidAmount": "المبلغ المدفوع",
+    "paymentStatus": "حالة الدفع",
+    "notes": "ملاحظات",
+    "birthDate": "تاريخ الميلاد",
+    "gender": "الجنس",
+    "notFound": "غير موجود"
   },
   "nav": {
     "dashboard": "لوحة التحكم",
@@ -70,7 +83,26 @@
     "gender": {
       "male": "ذكر",
       "female": "أنثى"
-    }
+    },
+    "backToMembers": "العودة للأعضاء",
+    "addMember": "إضافة عضو",
+    "editMember": "تعديل العضو",
+    "memberInfo": "معلومات العضو",
+    "firstSubscription": "الاشتراك الأول",
+    "memberSince": "عضو منذ",
+    "memberProfile": "ملف العضو",
+    "currentSubscription": "الاشتراك الحالي",
+    "subscriptionHistory": "سجل الاشتراكات",
+    "noHistory": "لا يوجد سجل اشتراكات",
+    "deleteConfirm": "هل أنت متأكد من حذف هذا العضو؟ لا يمكن التراجع عن هذا الإجراء.",
+    "memberAdded": "تمت إضافة العضو بنجاح",
+    "memberUpdated": "تم تحديث بيانات العضو بنجاح",
+    "renewSubscription": "تجديد الاشتراك",
+    "viewProfile": "عرض الملف",
+    "daysRemaining": "{{count}} يوم متبقٍ",
+    "expiredDaysAgo": "انتهى منذ {{count}} يوم",
+    "notFound": "العضو غير موجود",
+    "notFoundDesc": "العضو الذي تبحث عنه غير موجود."
   },
   "subscription": {
     "status": {
@@ -84,6 +116,16 @@
       "partial": "جزئي"
     },
     "daysRemaining": "{{count}} يوم متبقٍ",
-    "expiredDaysAgo": "انتهى منذ {{count}} يوم"
+    "expiredDaysAgo": "انتهى منذ {{count}} يوم",
+    "newSubscription": "اشتراك جديد",
+    "renewFor": "تجديد اشتراك {{name}}",
+    "assignFor": "تعيين اشتراك لـ {{name}}",
+    "selectMember": "اختر عضواً",
+    "autoEndDate": "يُحسب تاريخ الانتهاء تلقائياً من تاريخ البدء ومدة الخطة",
+    "months_one": "شهر",
+    "months_other": "أشهر",
+    "renewSuccess": "تم تجديد الاشتراك بنجاح",
+    "plan": "الخطة",
+    "selectPlan": "اختر خطة"
   }
 }

@@ -1,35 +1,21 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Users, UserPlus, AlertTriangle, DollarSign } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { useData } from '../context/DataContext'
 import StatCard from '../components/ui/StatCard'
 import ExpiringList from '../features/dashboard/components/ExpiringList'
 import MemberCard from '../features/members/components/MemberCard'
-import { getMemberRows, getDashboardStats } from '../services/mockData'
-
-type FilterTab = 'all' | 'active' | 'expiring_soon' | 'expired'
 
 export default function DashboardPage() {
   const { t } = useTranslation()
   const { user } = useAuth()
+  const { getMemberRows, getDashboardStats } = useData()
   const isSuperAdmin = user?.role === 'super_admin'
 
-  const [filter, setFilter] = useState<FilterTab>('all')
-
-  const rows = useMemo(() => getMemberRows(), [])
-  const stats = useMemo(() => getDashboardStats(), [])
-
-  const filtered = useMemo(() => {
-    if (filter === 'all') return rows
-    return rows.filter((r) => r.status === filter)
-  }, [rows, filter])
-
-  const tabs: { key: FilterTab; label: string }[] = [
-    { key: 'all',          label: t('common.all') },
-    { key: 'active',       label: t('common.active') },
-    { key: 'expiring_soon',label: t('common.expiringSoon') },
-    { key: 'expired',      label: t('common.expired') },
-  ]
+  const rows = useMemo(() => getMemberRows(), [getMemberRows])
+  const stats = useMemo(() => getDashboardStats(), [getDashboardStats])
+  const preview = useMemo(() => rows.slice(0, 12), [rows])
 
   return (
     <div className="space-y-6">
@@ -76,40 +62,14 @@ export default function DashboardPage() {
       </div>
 
       {/* Members + Expiring Soon */}
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-6 items-start">
-
-        {/* All Members */}
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6 items-start">
         <div className="space-y-4">
-          {/* Section header */}
-          <div className="flex items-center justify-between gap-3 flex-wrap">
-            <h2 className="text-base font-semibold text-white">{t('dashboard.allMembers')}</h2>
-            <div className="flex items-center gap-1 bg-zinc-900 border border-zinc-800 rounded-lg p-1">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => setFilter(tab.key)}
-                  className={[
-                    'px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
-                    filter === tab.key ? 'bg-zinc-700 text-white' : 'text-zinc-400 hover:text-white',
-                  ].join(' ')}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+          <h2 className="text-base font-semibold text-white">{t('dashboard.allMembers')}</h2>
+          <div className="grid gap-3 grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+            {preview.map((row) => <MemberCard key={row.member.id} row={row} />)}
           </div>
-
-          {/* Cards grid */}
-          {filtered.length === 0 ? (
-            <div className="text-center py-16 text-zinc-500 text-sm">{t('members.noMembers')}</div>
-          ) : (
-            <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
-              {filtered.map((row) => <MemberCard key={row.member.id} row={row} />)}
-            </div>
-          )}
         </div>
 
-        {/* Expiring Soon panel */}
         <div className="xl:sticky xl:top-0">
           <ExpiringList rows={rows} />
         </div>
