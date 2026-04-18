@@ -275,6 +275,14 @@ List, add, deactivate, or delete admin accounts.
 
 ---
 
+## screenshots
+
+refer to the design below as a base for the dashboard UI, it doesn't have to be exact, use it as a reference
+
+- @context/screenshots/dashboard-ui.png
+- @context/screenshots/dashboard-ui-mobile.png
+- @context/screenshots/dashboard-ui-mobile2.png
+
 ## 6. Tech Stack
 
 ### Frontend
