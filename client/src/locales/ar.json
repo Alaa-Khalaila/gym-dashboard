@@ -1,0 +1,78 @@
+{
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "error": "حدث خطأ ما",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "confirm": "تأكيد",
+    "search": "بحث",
+    "filter": "تصفية",
+    "all": "الكل",
+    "active": "نشط",
+    "expired": "منتهي",
+    "expiringSoon": "تنتهي قريباً",
+    "actions": "الإجراءات",
+    "name": "الاسم",
+    "phone": "الهاتف",
+    "email": "البريد الإلكتروني",
+    "status": "الحالة",
+    "plan": "الخطة",
+    "startDate": "تاريخ البدء",
+    "endDate": "تاريخ الانتهاء"
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "members": "الأعضاء",
+    "subscriptions": "الاشتراكات",
+    "revenue": "الإيرادات",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "loginTitle": "مرحباً بعودتك",
+    "loginSubtitle": "سجّل دخولك إلى حسابك",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "loginButton": "تسجيل الدخول",
+    "loginError": "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "activeMembers": "الأعضاء النشطون",
+    "newThisMonth": "جدد هذا الشهر",
+    "expiringSoon": "تنتهي خلال 7 أيام",
+    "totalRevenueMonth": "إيرادات هذا الشهر",
+    "totalRevenueYear": "إيرادات هذا العام",
+    "expiringSoonList": "تنتهي قريباً",
+    "renew": "تجديد",
+    "noExpiring": "لا يوجد أعضاء تنتهي اشتراكاتهم قريباً"
+  },
+  "members": {
+    "title": "الأعضاء",
+    "addNew": "إضافة عضو جديد",
+    "search": "ابحث بالاسم أو الهاتف...",
+    "filterStatus": "تصفية حسب الحالة",
+    "noMembers": "لا يوجد أعضاء",
+    "gender": {
+      "male": "ذكر",
+      "female": "أنثى"
+    }
+  },
+  "subscription": {
+    "status": {
+      "active": "نشط",
+      "expiring_soon": "تنتهي قريباً",
+      "expired": "منتهي"
+    },
+    "payment": {
+      "paid": "مدفوع",
+      "unpaid": "غير مدفوع",
+      "partial": "جزئي"
+    },
+    "daysRemaining": "{{count}} يوم متبقٍ",
+    "expiredDaysAgo": "انتهى منذ {{count}} يوم"
+  }
+}

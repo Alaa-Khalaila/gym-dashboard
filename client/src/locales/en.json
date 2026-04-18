@@ -1,0 +1,78 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "active": "Active",
+    "expired": "Expired",
+    "expiringSoon": "Expiring Soon",
+    "actions": "Actions",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "status": "Status",
+    "plan": "Plan",
+    "startDate": "Start Date",
+    "endDate": "End Date"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "members": "Members",
+    "subscriptions": "Subscriptions",
+    "revenue": "Revenue",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to your account",
+    "email": "Email address",
+    "password": "Password",
+    "loginButton": "Sign in",
+    "loginError": "Invalid email or password"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "activeMembers": "Active Members",
+    "newThisMonth": "New This Month",
+    "expiringSoon": "Expiring in 7 Days",
+    "totalRevenueMonth": "Revenue This Month",
+    "totalRevenueYear": "Revenue This Year",
+    "expiringSoonList": "Expiring Soon",
+    "renew": "Renew",
+    "noExpiring": "No members expiring soon"
+  },
+  "members": {
+    "title": "Members",
+    "addNew": "Add New Member",
+    "search": "Search by name or phone...",
+    "filterStatus": "Filter by status",
+    "noMembers": "No members found",
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    }
+  },
+  "subscription": {
+    "status": {
+      "active": "Active",
+      "expiring_soon": "Expiring Soon",
+      "expired": "Expired"
+    },
+    "payment": {
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "partial": "Partial"
+    },
+    "daysRemaining": "{{count}} days remaining",
+    "expiredDaysAgo": "Expired {{count}} days ago"
+  }
+}
