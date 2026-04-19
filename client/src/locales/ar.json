@@ -3,6 +3,7 @@
     "loading": "جارٍ التحميل...",
     "error": "حدث خطأ ما",
     "save": "حفظ",
+    "saving": "جارٍ الحفظ…",
     "cancel": "إلغاء",
     "edit": "تعديل",
     "delete": "حذف",
@@ -130,6 +131,18 @@
     "expired": "منتهية",
     "dates": "{{start}} ← {{end}}"
   },
+  "settings": {
+    "title": "الإعدادات",
+    "gymInfo": "معلومات الجيم",
+    "gymName": "اسم الجيم",
+    "gymNamePlaceholder": "أدخل اسم الجيم",
+    "savedSuccess": "تم حفظ الإعدادات",
+    "subscriptionPlans": "خطط الاشتراك",
+    "plansDesc": "حدّد أسعار كل خطة. تنطبق التغييرات على الاشتراكات الجديدة.",
+    "manageAdmins": "حسابات الإدارة",
+    "manageAdminsDesc": "إضافة أو تعطيل أو حذف حسابات المشرفين.",
+    "goToAdmins": "إدارة المشرفين"
+  },
   "subscription": {
     "status": {
       "active": "نشط",
@@ -148,8 +161,11 @@
     "assignFor": "تعيين اشتراك لـ {{name}}",
     "selectMember": "اختر عضواً",
     "autoEndDate": "يُحسب تاريخ الانتهاء تلقائياً من تاريخ البدء ومدة الخطة",
-    "months_one": "شهر",
-    "months_other": "أشهر",
+    "months_one": "{{count}} شهر",
+    "months_two": "{{count}} شهران",
+    "months_few": "{{count}} أشهر",
+    "months_many": "{{count}} شهراً",
+    "months_other": "{{count}} أشهر",
     "renewSuccess": "تم تجديد الاشتراك بنجاح",
     "plan": "الخطة",
     "selectPlan": "اختر خطة"

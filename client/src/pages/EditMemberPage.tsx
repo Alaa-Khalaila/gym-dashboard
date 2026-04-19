@@ -13,9 +13,10 @@ export default function EditMemberPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { getMemberById, updateMember } = useData()
+  const { getMemberById, updateMember, loading } = useData()
 
   const member = getMemberById(id!)
+  if (loading) return <div className="flex justify-center py-20 text-zinc-400 text-sm">Loading…</div>
   if (!member) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
@@ -35,7 +36,9 @@ export default function EditMemberPage() {
   const [gender, setGender]       = useState<Gender>(member.gender)
   const [birthDate, setBirthDate] = useState(member.birthDate ?? '')
   const [notes, setNotes]         = useState(member.notes ?? '')
-  const [errors, setErrors]       = useState<Record<string, string>>({})
+  const [errors, setErrors]         = useState<Record<string, string>>({})
+  const [submitting, setSubmitting] = useState(false)
+  const [apiError, setApiError]     = useState('')
 
   function validate() {
     const e: Record<string, string> = {}
@@ -44,20 +47,28 @@ export default function EditMemberPage() {
     return e
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
 
-    updateMember(id!, {
-      name: name.trim(),
-      phone: phone.trim(),
-      email: email.trim() || undefined,
-      gender,
-      birthDate: birthDate || undefined,
-      notes: notes.trim() || undefined,
-    })
-    navigate(`/members/${id}`)
+    setSubmitting(true)
+    setApiError('')
+    try {
+      await updateMember(id!, {
+        name: name.trim(),
+        phone: phone.trim(),
+        email: email.trim() || undefined,
+        gender,
+        birthDate: birthDate || undefined,
+        notes: notes.trim() || undefined,
+      })
+      navigate(`/members/${id}`)
+    } catch (err) {
+      setApiError(err instanceof Error ? err.message : 'Something went wrong')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -182,19 +193,23 @@ export default function EditMemberPage() {
           </div>
         </section>
 
-        <div className="flex items-center justify-end gap-3 pb-6">
-          <Link
-            to={`/members/${id}`}
-            className="px-5 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
-          >
-            {t('common.cancel')}
-          </Link>
-          <button
-            type="submit"
-            className="px-6 py-2.5 rounded-lg text-sm font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors"
-          >
-            {t('common.save')}
-          </button>
+        <div className="space-y-3 pb-6">
+          {apiError && <p className="text-sm text-red-400 text-end">{apiError}</p>}
+          <div className="flex items-center justify-end gap-3">
+            <Link
+              to={`/members/${id}`}
+              className="px-5 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+            >
+              {t('common.cancel')}
+            </Link>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="px-6 py-2.5 rounded-lg text-sm font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {submitting ? t('common.saving') : t('common.save')}
+            </button>
+          </div>
         </div>
       </form>
     </div>

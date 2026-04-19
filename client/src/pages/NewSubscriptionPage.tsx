@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { ArrowLeft, CreditCard } from 'lucide-react'
 import { addMonths, format } from 'date-fns'
 import { useData } from '../context/DataContext'
-import { useAuth } from '../context/AuthContext'
 import MemberAvatar from '../components/ui/MemberAvatar'
 import type { PaymentStatus } from '../types'
 
@@ -16,7 +15,6 @@ export default function NewSubscriptionPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { user } = useAuth()
   const { members, plans, getMemberById, addSubscription } = useData()
 
   const preselectedId = searchParams.get('memberId') ?? ''
@@ -29,6 +27,8 @@ export default function NewSubscriptionPage() {
   const [paidAmount, setPaidAmount]       = useState<number>(activePlans[0]?.price ?? 0)
   const [paymentStatus, setPaymentStatus] = useState<PaymentStatus>('paid')
   const [errors, setErrors]               = useState<Record<string, string>>({})
+  const [submitting, setSubmitting]       = useState(false)
+  const [apiError, setApiError]           = useState('')
 
   const selectedPlan = activePlans.find((p) => p.id === planId)
   const endDate = selectedPlan && startDate
@@ -50,25 +50,21 @@ export default function NewSubscriptionPage() {
     return e
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
 
-    const plan = activePlans.find((p) => p.id === planId)!
-    addSubscription({
-      id: `s${Date.now()}`,
-      memberId,
-      planId,
-      plan,
-      startDate,
-      endDate,
-      paidAmount: Number(paidAmount),
-      paymentStatus,
-      createdAt: today,
-      createdBy: user?.id ?? '1',
-    })
-    navigate(`/members/${memberId}`)
+    setSubmitting(true)
+    setApiError('')
+    try {
+      await addSubscription({ memberId, planId, startDate, paidAmount: Number(paidAmount), paymentStatus })
+      navigate(`/members/${memberId}`)
+    } catch (err) {
+      setApiError(err instanceof Error ? err.message : 'Something went wrong')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const backHref = preselectedId ? `/members/${preselectedId}` : '/members'
@@ -153,7 +149,7 @@ export default function NewSubscriptionPage() {
                     {plan.name}
                   </p>
                   <p className={`text-xs mt-0.5 ${planId === plan.id ? 'text-emerald-400' : 'text-zinc-500'}`}>
-                    ${plan.price}
+                    {plan.price} JD
                   </p>
                 </button>
               ))}
@@ -189,13 +185,13 @@ export default function NewSubscriptionPage() {
             <div>
               <label className={LABEL}>{t('common.paidAmount')}</label>
               <div className="relative">
-                <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-zinc-500">$</span>
+                <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-zinc-500">JD</span>
                 <input
                   type="number"
                   min={0}
                   value={paidAmount}
                   onChange={(e) => setPaidAmount(Number(e.target.value))}
-                  className={INPUT + ' ps-7'}
+                  className={INPUT + ' ps-10'}
                 />
               </div>
             </div>
@@ -216,19 +212,23 @@ export default function NewSubscriptionPage() {
           </div>
         </section>
 
-        <div className="flex items-center justify-end gap-3 pb-6">
-          <Link
-            to={backHref}
-            className="px-5 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
-          >
-            {t('common.cancel')}
-          </Link>
-          <button
-            type="submit"
-            className="px-6 py-2.5 rounded-lg text-sm font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors"
-          >
-            {t('subscription.newSubscription')}
-          </button>
+        <div className="space-y-3 pb-6">
+          {apiError && <p className="text-sm text-red-400 text-end">{apiError}</p>}
+          <div className="flex items-center justify-end gap-3">
+            <Link
+              to={backHref}
+              className="px-5 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+            >
+              {t('common.cancel')}
+            </Link>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="px-6 py-2.5 rounded-lg text-sm font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {submitting ? t('common.saving') : t('subscription.newSubscription')}
+            </button>
+          </div>
         </div>
       </form>
     </div>
