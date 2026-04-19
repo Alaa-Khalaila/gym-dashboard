@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { ArrowLeft, User, CreditCard } from 'lucide-react'
 import { addMonths, format } from 'date-fns'
 import { useData } from '../context/DataContext'
-import { useAuth } from '../context/AuthContext'
 import type { Gender, PaymentStatus } from '../types'
 
 const INPUT = 'w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-colors'
@@ -14,7 +13,6 @@ const LABEL = 'block text-xs font-medium text-zinc-400 mb-1.5'
 export default function AddMemberPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { user } = useAuth()
   const { plans, addMember } = useData()
 
   const activePlans = plans.filter((p) => p.isActive)
@@ -37,7 +35,9 @@ export default function AddMemberPage() {
     ? format(addMonths(new Date(startDate), selectedPlan.durationMonths), 'yyyy-MM-dd')
     : ''
 
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [errors, setErrors]         = useState<Record<string, string>>({})
+  const [submitting, setSubmitting] = useState(false)
+  const [apiError, setApiError]     = useState('')
 
   function validate() {
     const e: Record<string, string> = {}
@@ -53,40 +53,24 @@ export default function AddMemberPage() {
     if (p) setPaidAmount(p.price)
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
 
-    const memberId = `m${Date.now()}`
-    const plan = activePlans.find((p) => p.id === planId)!
-
-    addMember(
-      {
-        id: memberId,
-        name: name.trim(),
-        phone: phone.trim(),
-        email: email.trim() || undefined,
-        gender,
-        birthDate: birthDate || undefined,
-        notes: notes.trim() || undefined,
-        createdAt: today,
-        createdBy: user?.id ?? '1',
-      },
-      {
-        id: `s${Date.now()}`,
-        memberId,
-        planId,
-        plan,
-        startDate,
-        endDate,
-        paidAmount: Number(paidAmount),
-        paymentStatus,
-        createdAt: today,
-        createdBy: user?.id ?? '1',
-      },
-    )
-    navigate(`/members/${memberId}`)
+    setSubmitting(true)
+    setApiError('')
+    try {
+      const memberId = await addMember(
+        { name: name.trim(), phone: phone.trim(), email: email.trim() || undefined, gender, birthDate: birthDate || undefined, notes: notes.trim() || undefined },
+        { planId, startDate, paidAmount: Number(paidAmount), paymentStatus },
+      )
+      navigate(`/members/${memberId}`)
+    } catch (err) {
+      setApiError(err instanceof Error ? err.message : 'Something went wrong')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -247,7 +231,7 @@ export default function AddMemberPage() {
                     {plan.name}
                   </p>
                   <p className={`text-xs mt-0.5 ${planId === plan.id ? 'text-emerald-400' : 'text-zinc-500'}`}>
-                    ${plan.price}
+                    {plan.price} JD
                   </p>
                 </button>
               ))}
@@ -283,13 +267,13 @@ export default function AddMemberPage() {
             <div>
               <label className={LABEL}>{t('common.paidAmount')}</label>
               <div className="relative">
-                <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-zinc-500">$</span>
+                <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-zinc-500">JD</span>
                 <input
                   type="number"
                   min={0}
                   value={paidAmount}
                   onChange={(e) => setPaidAmount(Number(e.target.value))}
-                  className={INPUT + ' ps-7'}
+                  className={INPUT + ' ps-10'}
                 />
               </div>
             </div>
@@ -311,19 +295,25 @@ export default function AddMemberPage() {
         </section>
 
         {/* Actions */}
-        <div className="flex items-center justify-end gap-3 pb-6">
-          <Link
-            to="/members"
-            className="px-5 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
-          >
-            {t('common.cancel')}
-          </Link>
-          <button
-            type="submit"
-            className="px-6 py-2.5 rounded-lg text-sm font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors"
-          >
-            {t('members.addMember')}
-          </button>
+        <div className="space-y-3 pb-6">
+          {apiError && (
+            <p className="text-sm text-red-400 text-end">{apiError}</p>
+          )}
+          <div className="flex items-center justify-end gap-3">
+            <Link
+              to="/members"
+              className="px-5 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+            >
+              {t('common.cancel')}
+            </Link>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="px-6 py-2.5 rounded-lg text-sm font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {submitting ? t('common.saving') : t('members.addMember')}
+            </button>
+          </div>
         </div>
       </form>
     </div>

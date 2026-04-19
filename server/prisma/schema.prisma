@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  super_admin
+  admin
+}
+
+enum PaymentStatus {
+  paid
+  unpaid
+  partial
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(admin)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  membersCreated      Member[]       @relation("CreatedBy")
+  subscriptionsCreated Subscription[] @relation("SubscriptionCreatedBy")
+}
+
+model Member {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  gender    String
+  birthDate DateTime?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  createdById String
+  createdBy   User   @relation("CreatedBy", fields: [createdById], references: [id])
+
+  subscriptions Subscription[]
+}
+
+model Plan {
+  id             String   @id @default(cuid())
+  name           String
+  durationMonths Int
+  price          Float
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id            String        @id @default(cuid())
+  startDate     DateTime
+  endDate       DateTime
+  paidAmount    Float
+  paymentStatus PaymentStatus @default(paid)
+  createdAt     DateTime      @default(now())
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  planId String
+  plan   Plan   @relation(fields: [planId], references: [id])
+
+  createdById String
+  createdBy   User   @relation("SubscriptionCreatedBy", fields: [createdById], references: [id])
+}

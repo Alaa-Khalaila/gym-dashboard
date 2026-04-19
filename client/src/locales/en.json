@@ -3,6 +3,7 @@
     "loading": "Loading...",
     "error": "Something went wrong",
     "save": "Save",
+    "saving": "Saving…",
     "cancel": "Cancel",
     "edit": "Edit",
     "delete": "Delete",
@@ -130,6 +131,18 @@
     "expired": "Expired",
     "dates": "{{start}} → {{end}}"
   },
+  "settings": {
+    "title": "Settings",
+    "gymInfo": "Gym Information",
+    "gymName": "Gym Name",
+    "gymNamePlaceholder": "Enter your gym name",
+    "savedSuccess": "Settings saved",
+    "subscriptionPlans": "Subscription Plans",
+    "plansDesc": "Set pricing for each plan. Changes apply to new subscriptions.",
+    "manageAdmins": "Admin Accounts",
+    "manageAdminsDesc": "Add, deactivate, or remove admin accounts.",
+    "goToAdmins": "Manage Admins"
+  },
   "subscription": {
     "status": {
       "active": "Active",
@@ -148,8 +161,8 @@
     "assignFor": "Assign subscription for {{name}}",
     "selectMember": "Select Member",
     "autoEndDate": "End date is auto-calculated from start date and plan duration",
-    "months_one": "month",
-    "months_other": "months",
+    "months_one": "{{count}} month",
+    "months_other": "{{count}} months",
     "renewSuccess": "Subscription renewed successfully",
     "plan": "Plan",
     "selectPlan": "Select a plan"

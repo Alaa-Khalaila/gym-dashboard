@@ -24,12 +24,14 @@ export default function MemberProfilePage() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { user } = useAuth()
-  const { getMemberById, getSubscriptionsForMember, getLatestSubscription, deleteMember } = useData()
+  const { getMemberById, getSubscriptionsForMember, getLatestSubscription, deleteMember, loading } = useData()
 
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deleting, setDeleting]           = useState(false)
   const isSuperAdmin = user?.role === 'super_admin'
 
   const member = getMemberById(id!)
+  if (loading) return <div className="flex justify-center py-20 text-zinc-400 text-sm">Loading…</div>
   if (!member) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[40vh] gap-4">
@@ -47,9 +49,14 @@ export default function MemberProfilePage() {
   const status = currentSub ? getSubscriptionStatus(currentSub.endDate) : ('no_subscription' as const)
   const daysRemaining = currentSub ? getDaysRemaining(currentSub.endDate) : 0
 
-  function handleDelete() {
-    deleteMember(id!)
-    navigate('/members')
+  async function handleDelete() {
+    setDeleting(true)
+    try {
+      await deleteMember(id!)
+      navigate('/members')
+    } finally {
+      setDeleting(false)
+    }
   }
 
   const canRenew = status === 'expired' || status === 'expiring_soon' || status === 'no_subscription'
@@ -107,9 +114,10 @@ export default function MemberProfilePage() {
             </button>
             <button
               onClick={handleDelete}
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-red-600 hover:bg-red-500 text-white transition-colors"
+              disabled={deleting}
+              className="px-4 py-2 rounded-lg text-sm font-medium bg-red-600 hover:bg-red-500 text-white transition-colors disabled:opacity-60"
             >
-              {t('common.delete')}
+              {deleting ? '…' : t('common.delete')}
             </button>
           </div>
         </div>
@@ -197,7 +205,7 @@ export default function MemberProfilePage() {
             <div className="flex items-center gap-4 pt-2 border-t border-zinc-800">
               <div>
                 <p className="text-xs text-zinc-500">{t('common.paidAmount')}</p>
-                <p className="text-sm font-semibold text-white mt-0.5">${currentSub.paidAmount}</p>
+                <p className="text-sm font-semibold text-white mt-0.5">{currentSub.paidAmount} JD</p>
               </div>
               <div>
                 <p className="text-xs text-zinc-500">{t('common.paymentStatus')}</p>
@@ -237,7 +245,7 @@ export default function MemberProfilePage() {
                     </p>
                   </div>
                   <div className="text-end shrink-0">
-                    <p className="text-sm font-semibold text-white">${sub.paidAmount}</p>
+                    <p className="text-sm font-semibold text-white">{sub.paidAmount} JD</p>
                     <span className={`text-xs ${PAYMENT_BADGE[sub.paymentStatus].split(' ')[1]}`}>
                       {t(`subscription.payment.${sub.paymentStatus}`)}
                     </span>
