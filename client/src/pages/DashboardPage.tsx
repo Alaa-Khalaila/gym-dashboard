@@ -53,7 +53,7 @@ export default function DashboardPage() {
         {isSuperAdmin && (
           <StatCard
             label={t('dashboard.totalRevenueMonth')}
-            value={`$${stats.revenueThisMonth.toLocaleString()}`}
+            value={`${stats.revenueThisMonth.toLocaleString()} JD`}
             description={t('dashboard.revenueMonthDesc')}
             icon={<DollarSign className="w-5 h-5 text-emerald-400" />}
             iconBg="bg-emerald-500/10"
@@ -65,7 +65,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6 items-start">
         <div className="space-y-4">
           <h2 className="text-base font-semibold text-white">{t('dashboard.allMembers')}</h2>
-          <div className="grid gap-3 grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {preview.map((row) => <MemberCard key={row.member.id} row={row} />)}
           </div>
         </div>
