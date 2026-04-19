@@ -36,7 +36,9 @@ export default function ExpiringList({ rows }: Props) {
               <MemberAvatar name={member.name} size="sm" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-white truncate">{member.name}</p>
-                <p className="text-xs text-zinc-500">{subscription?.plan.name}</p>
+                <p className="text-xs text-zinc-500">
+                  {subscription ? t('subscription.months', { count: subscription.plan.durationMonths }) : '—'}
+                </p>
               </div>
               <div className="flex items-center gap-2.5 shrink-0">
                 <div className="text-end">

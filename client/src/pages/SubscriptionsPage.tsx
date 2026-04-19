@@ -210,7 +210,7 @@ function SubRow({ row, onNavigate }: {
       {/* Plan */}
       <div className="hidden sm:block w-28 shrink-0">
         <p className="text-sm text-white">{sub.plan.name}</p>
-        <p className="text-xs text-zinc-500">${sub.paidAmount}</p>
+        <p className="text-xs text-zinc-500">{sub.paidAmount} JD</p>
       </div>
 
       {/* Dates */}

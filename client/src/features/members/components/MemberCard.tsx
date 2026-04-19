@@ -33,7 +33,11 @@ export default function MemberCard({ row }: Props) {
         <MemberAvatar name={member.name} />
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-white text-sm truncate">{member.name}</p>
-          <p className="text-xs text-zinc-500">{subscription?.plan.name ?? '—'}</p>
+          <p className="text-xs text-zinc-500">
+            {subscription
+              ? t('subscription.months', { count: subscription.plan.durationMonths })
+              : '—'}
+          </p>
         </div>
       </div>
 

@@ -139,19 +139,19 @@ export default function RevenuePage() {
           icon={<DollarSign className="w-5 h-5 text-emerald-400" />}
           iconBg="bg-emerald-500/10"
           label={t('revenue.totalRevenue')}
-          value={`$${stats.total.toLocaleString()}`}
+          value={`${stats.total.toLocaleString()} JD`}
         />
         <RevenueCard
           icon={<TrendingUp className="w-5 h-5 text-blue-400" />}
           iconBg="bg-blue-500/10"
           label={t('revenue.paidRevenue')}
-          value={`$${stats.paid.toLocaleString()}`}
+          value={`${stats.paid.toLocaleString()} JD`}
         />
         <RevenueCard
           icon={<AlertCircle className="w-5 h-5 text-amber-400" />}
           iconBg="bg-amber-500/10"
           label={t('revenue.unpaidRevenue')}
-          value={`$${stats.unpaid.toLocaleString()}`}
+          value={`${stats.unpaid.toLocaleString()} JD`}
         />
         <RevenueCard
           icon={<CreditCard className="w-5 h-5 text-violet-400" />}
@@ -179,7 +179,7 @@ export default function RevenuePage() {
                   {/* Tooltip */}
                   {bucket.revenue > 0 && (
                     <div className="absolute bottom-full mb-1.5 left-1/2 -translate-x-1/2 bg-zinc-800 border border-zinc-700 rounded-lg px-2 py-1 text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                      ${bucket.revenue.toLocaleString()}
+                      {bucket.revenue.toLocaleString()} JD
                       {bucket.count > 0 && <span className="text-zinc-400"> · {bucket.count}</span>}
                     </div>
                   )}
@@ -216,7 +216,7 @@ export default function RevenuePage() {
                 <div key={plan.id} className="space-y-1.5">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-zinc-300 font-medium">{plan.name}</span>
-                    <span className="text-white font-semibold">${revenue.toLocaleString()}</span>
+                    <span className="text-white font-semibold">{revenue.toLocaleString()} JD</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
@@ -271,7 +271,7 @@ export default function RevenuePage() {
                 </span>
 
                 <p className="text-sm font-bold text-white shrink-0 w-16 text-end">
-                  ${sub.paidAmount.toLocaleString()}
+                  {sub.paidAmount.toLocaleString()} JD
                 </p>
               </div>
             ))}
